@@ -1,0 +1,56 @@
+{
+    "name": "ai-model-usage-cost",
+    "version": "0.1.0",
+    "license": "MIT",
+    "type": "module",
+    "main": "./dist/usage-cost/index.js",
+    "types": "./dist/usage-cost/index.d.ts",
+    "scripts": {
+        "format": "prettier --write .",
+        "clean": "rm -rf ./dist; rm *.tsbuildinfo || true",
+        "prepare": "test -n \"$UPDATE_LITELLM_DATA\" && wget https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json -O ./model_prices_and_context_window-gen.json || echo 'Skipping LiteLLM data update.'",
+        "build": "tsc --build --verbose",
+        "test": "node --test './dist/tests/**/*.js'",
+        "rel:patch": "pnpm version patch --force -m 'release: v%s' && git push origin main --follow-tags"
+    },
+    "keywords": [
+        "ai",
+        "model",
+        "llm",
+        "usage",
+        "cost",
+        "pricing",
+        "ai-sdk",
+        "openai",
+        "google",
+        "anthropic",
+        "gemini"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dbo/ai-model-usage-cost.git"
+    },
+    "files": [
+        "./dist/usage-cost",
+        "./model_prices_and_context_window-gen.json"
+    ],
+    "devDependencies": {
+        "@eslint/compat": "^1.2.4",
+        "@eslint/js": "^9.16.0",
+        "@tsconfig/node22": "^22.0.0",
+        "@types/node": "^22",
+        "ai": "^5.0.68",
+        "eslint": "^9.16.0",
+        "eslint-config-prettier": "^9.1.0",
+        "globals": "^15.13.0",
+        "prettier": "^3.3.3",
+        "typescript-eslint": "^8.18.0"
+    },
+    "peerDependencies": {
+        "ai": "^5.0.68"
+    }
+}
