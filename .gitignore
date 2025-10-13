@@ -133,3 +133,5 @@ dist
 
 *-gen/
 *-gen.*
+
+/model_prices_and_context_window.json

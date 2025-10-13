@@ -9,14 +9,15 @@ A cost estimation based on the usage reported by [AI SDK](https://github.com/ver
 ## Installation
 
 Use it alongside the AI SDK, e.g.
-
 ```bash
 $ npm install ai-model-usage-cost
 ```
 
-Run your installation with environment variable `UPDATE_LITELLM_DATA=1` to update
-[LiteLLM data](https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json)
-from github.
+Update [LiteLLM data](https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json)
+from github running
+```bash
+$ npx ai-model-usage-cost update-litellm-data
+```
 
 ## Usage
 

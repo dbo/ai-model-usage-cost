@@ -1,5 +1,5 @@
 import type { LanguageModel, LanguageModelUsage } from "ai";
-import modelSpecs from "../../model_prices_and_context_window-gen.json" with { type: "json" };
+import modelSpecs from "../../model_prices_and_context_window.json" with { type: "json" };
 
 /**
  * @see https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json

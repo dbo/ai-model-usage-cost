@@ -24,7 +24,8 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: "pnpm"
-            - run: UPDATE_LITELLM_DATA=1 pnpm install --frozen-lockfile
+            - run: pnpm install --frozen-lockfile
+            - run: pnpm _prebuild
             - run: pnpm eslint
             - run: pnpm build
             - run: pnpm test

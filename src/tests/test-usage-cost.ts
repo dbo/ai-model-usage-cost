@@ -1,6 +1,6 @@
 import { strict as assert } from "assert";
 import test, { suite } from "node:test";
-import modelSpecs from "../../model_prices_and_context_window-gen.json" with { type: "json" };
+import modelSpecs from "../../model_prices_and_context_window.json" with { type: "json" };
 import { estimateModelUsageCost } from "../usage-cost/index.js";
 
 suite("usage-cost", () => {

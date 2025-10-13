@@ -20,7 +20,8 @@ jobs:
                   cache: "pnpm"
                   node-version: "22.x"
                   registry-url: "https://registry.npmjs.org"
-            - run: UPDATE_LITELLM_DATA=1 pnpm install --frozen-lockfile
+            - run: pnpm install --frozen-lockfile
+            - run: pnpm _prebuild
             - run: pnpm build
             - run: pnpm test
             - run: NPM_CONFIG_PROVENANCE=true pnpm publish --no-git-checks

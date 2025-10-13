@@ -5,10 +5,13 @@
     "type": "module",
     "main": "./dist/usage-cost/index.js",
     "types": "./dist/usage-cost/index.d.ts",
+    "bin": {
+        "update-litellm-data": "./dist/bin/update-litellm-data.js"
+    },
     "scripts": {
         "format": "prettier --write .",
         "clean": "rm -rf ./dist; rm *.tsbuildinfo || true",
-        "prepare": "test -n \"$UPDATE_LITELLM_DATA\" && wget https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json -O ./model_prices_and_context_window-gen.json || echo 'Skipping LiteLLM data update.'",
+        "_prebuild": "node --experimental-strip-types ./src/bin/update-litellm-data.ts",
         "build": "tsc --build --verbose",
         "test": "node --test './dist/tests/**/*.js'",
         "rel:patch": "pnpm version patch --force -m 'release: v%s' && git push origin main --follow-tags"
@@ -36,7 +39,8 @@
     },
     "files": [
         "./dist/usage-cost",
-        "./model_prices_and_context_window-gen.json"
+        "./dist/bin",
+        "./model_prices_and_context_window.json"
     ],
     "devDependencies": {
         "@eslint/compat": "^1.2.4",
