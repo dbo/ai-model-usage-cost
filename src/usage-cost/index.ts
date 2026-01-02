@@ -38,24 +38,13 @@ export function estimateModelUsageCost(
     model: LanguageModel,
     usage: LanguageModelUsage,
 ): number | undefined {
-    const { inputTokens, outputTokens, cachedInputTokens = 0, reasoningTokens = 0 } = usage;
+    const { inputTokens, outputTokens, inputTokenDetails, outputTokenDetails } = usage;
     if (inputTokens === undefined || outputTokens === undefined) {
         console.warn("No token usage: %o", usage);
         return;
     }
-
-    const estimatesTotalTokens = inputTokens + outputTokens + reasoningTokens;
-    const totalTokens = usage.totalTokens || estimatesTotalTokens;
-    if (totalTokens !== estimatesTotalTokens) {
-        console.warn(
-            "Total tokens %d does not match sum of input %d + output %d + reasoning %d = %d",
-            totalTokens,
-            inputTokens,
-            outputTokens,
-            reasoningTokens,
-            estimatesTotalTokens,
-        );
-    }
+    const reasoningTokens = outputTokenDetails?.reasoningTokens ?? usage.reasoningTokens ?? 0;
+    const cacheReadTokens = inputTokenDetails?.cacheReadTokens ?? usage.cachedInputTokens ?? 0;
 
     const modelId = typeof model === "string" ? model : model.modelId;
 
@@ -81,10 +70,10 @@ export function estimateModelUsageCost(
     }
 
     const cost =
-        outputTokens * output_cost_per_token +
+        (outputTokens - reasoningTokens) * output_cost_per_token +
         reasoningTokens * output_cost_per_reasoning_token +
-        (inputTokens - cachedInputTokens) * input_cost_per_token +
-        cachedInputTokens * cache_read_input_token_cost;
+        (inputTokens - cacheReadTokens) * input_cost_per_token +
+        cacheReadTokens * cache_read_input_token_cost;
 
     return cost;
 }

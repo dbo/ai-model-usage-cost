@@ -7,7 +7,15 @@ suite("usage-cost", () => {
     test("basic", () => {
         const cost = estimateModelUsageCost("gpt-4o", {
             inputTokens: 1000,
-            cachedInputTokens: 800,
+            inputTokenDetails: {
+                noCacheTokens: 200,
+                cacheReadTokens: 800,
+                cacheWriteTokens: 200,
+            },
+            outputTokenDetails: {
+                textTokens: 1000,
+                reasoningTokens: 0,
+            },
             outputTokens: 1000,
             totalTokens: 2000,
         });
